@@ -19,11 +19,9 @@ This project is intended to be cloned and used as a starting point.
 
 ### 1. Clone the repo
 
-```bash 
-git clone https://github.com/your-username/your-repo.git
-
-cd your-repo
-
+```bash
+git clone https://github.com/JordanSivils/charityquery_sample_app.git
+cd charityquery_sample_app
 npm install
 ```
 

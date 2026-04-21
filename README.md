@@ -1,36 +1,74 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Charity API Sample App
 
-## Getting Started
+See the Docs at https://www.charityquery.com/
 
-First, run the development server:
+This is a fully working example frontend for the Charity API.
+
+It demonstrates:
+- Filtering across all supported fields
+- Multi-select and multi-value queries
+- Dynamic field selection (`fields` parameter)
+- Pagination and sorting
+- A complete request → response → table workflow
+
+This project is intended to be cloned and used as a starting point.
+
+---
+
+## 🚀 Getting Started
+
+### 1. Clone the repo
+
+```bash 
+git clone https://github.com/your-username/your-repo.git
+
+cd your-repo
+
+npm install
+```
+
+### 2. Add .env.local file to the root of the project, and add these two variables: 
+- BASE_URL=https://api.charityquery.com
+- API_KEY=your_api_key_here
+
+### 3. Run the app
 
 ```bash
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
+open your browser to http://localhost:3000
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## How it works
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+1. draftFilters hold the query in state but do not call the api
+2. appliedFilters are what calls the API when you click Apply Filters
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+### Query builder
 
-## Learn More
+Filters are converted into query parameters:
+1. Multi-value filters convert an array of similar filters into repeated params for the api to handle
+    - ntee_code: ['W30', 'D20'] => ntee_code=W30&ntee_code=D20
 
-To learn more about Next.js, take a look at the following resources:
+2. Fields are the SQL SELECT wrapper. The are submitted in a CSV format
+    - fields=ein,name,city,state,ntee_code
+    - The data table renders based on the fields query. 
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## Data Fetching
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+- All data is fetched with a server action.
+    - These files are denoted with a "use server" directive at the top of the file.
+    - This keeps your API key secure and avoids needing a proxy route.
 
-## Deploy on Vercel
+## Features
+- Multi-select filters (NTEE, status, etc.)
+- Multi-input filters (city, zip)
+- Numeric range filters (assets, income, revenue)
+- Combined filters (subsection + classification)
+- Dynamic column rendering based on fields
+- Sorting + pagination
+- Server-side API requests
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+## Notes
+- This is a reference implementation, not production-ready
+- UI is intentionally simple to keep focus on API usage
+- Error handling is minimal!

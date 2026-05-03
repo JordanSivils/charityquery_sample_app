@@ -29,7 +29,7 @@ export type CharityFilters = {
   ntee_code: string[];
   deductibility: string[];
   group: string;
-  activity: string
+  activity: string;
   street: string;
   ruling: string;
   tax_period: string;
@@ -44,6 +44,14 @@ export type CharityFilters = {
   sortDir: "asc" | "desc";
   page: number;
   limit: number;
+
+  // nearby
+  searchMode: "standard" | "nearby";
+  lat?: number;
+  lng?: number;
+  origin_zip: string;
+  radius?: number;
+  geocode_status: string[];
 };
 
 export const defaultFilters: CharityFilters = {
@@ -74,6 +82,14 @@ export const defaultFilters: CharityFilters = {
   income_amount_lte: undefined,
   revenue_amount_gte: undefined,
   revenue_amount_lte: undefined,
+
+  searchMode: "standard",
+  lat: undefined,
+  lng: undefined,
+  origin_zip: "",
+  radius: undefined,
+  geocode_status: [],
+
   fields: ["ein", "name", "city", "state", "ntee_group"],
   sortBy: "name",
   sortDir: "asc",

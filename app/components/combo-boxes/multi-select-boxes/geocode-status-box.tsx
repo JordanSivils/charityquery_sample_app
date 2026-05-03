@@ -8,7 +8,7 @@ type ComboboxOption = {
   label: string;
 };
 
-export function FilingReqMultiFilter({
+export function GeocodeStatusMultiFilter({
   options,
 }: {
   options: ComboboxOption[];
@@ -17,22 +17,22 @@ export function FilingReqMultiFilter({
 
   return (
     <MetadataMultiCombobox
-      label="Filing Required"
-      placeholder="Select Filing Required"
-      searchPlaceholder="Search Filing Required..."
+      label="Geocode Status"
+      placeholder="Select Geocode Status"
+      searchPlaceholder="Search GeocodeStatus..."
       options={options}
-      values={draftFilters.filing_req_code}
+      values={draftFilters.geocode_status}
       onChange={(values) =>
         setDraftFilters((prev) => ({
           ...prev,
-          filing_req_code: values,
+          geocode_status: values,
           page: 1,
         }))
       }
       onClear={() =>
         setDraftFilters((prev) => ({
           ...prev,
-          filing_req_code: [],
+          geocode_status: [],
           page: 1,
         }))
       }

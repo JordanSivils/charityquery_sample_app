@@ -63,6 +63,10 @@ export function buildCharityQuery(filters: CharityFilters): string {
     params.append("foundation", value);
   });
 
+  filters.geocode_status.forEach((value) => {
+    params.append("geocode_status", value)
+  })
+
   filters.organization.forEach((value) => {
     params.append("organization", value);
   });

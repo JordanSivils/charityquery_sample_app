@@ -2,6 +2,8 @@
 
 import type { CharityFilters } from "@/app/table/table-context-example";
 import { buildCharityQuery } from "./build-charity-query";
+import { buildNearbyCharityQuery } from "./build-nearby-query";
+
 
 export type CharityApiRow = Record<string, unknown>;
 
@@ -16,8 +18,15 @@ export type FetchCharitiesResponse = {
 export async function fetchCharitiesAction(
   filters: CharityFilters
 ): Promise<FetchCharitiesResponse> {
-  const query = buildCharityQuery(filters);
-  const url = `${process.env.BASE_URL}/charities?${query}`;
+  const isNearbySearch = filters.searchMode === "nearby";
+
+const query = isNearbySearch
+  ? buildNearbyCharityQuery(filters)
+  : buildCharityQuery(filters);
+
+const endpoint = isNearbySearch ? "/nearby" : "/charities";
+
+const url = `${process.env.BASE_URL}${endpoint}?${query}`;
 
   const res = await fetch(url, {
     method: "GET",

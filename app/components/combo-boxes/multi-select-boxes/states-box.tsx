@@ -1,6 +1,4 @@
 "use client";
-
-import { useCharityFilters } from "@/app/contexts/charity-filter-context";
 import { useCharityTableContext } from "@/app/table/table-context-example";
 import { MetadataMultiCombobox } from "@/components/ui/combo-boxes/multi-select";
 

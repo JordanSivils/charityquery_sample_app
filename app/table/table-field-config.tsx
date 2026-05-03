@@ -319,4 +319,46 @@ export const charityFieldConfigMap: Record<string, CharityFieldConfig> = {
         ? row.revenue_amount.toLocaleString()
         : String(row.revenue_amount ?? "-"),
   },
-};
+  geocode_status: {
+    key: "geocode_status",
+    label: "Geocoding Status",
+    sortable: true,
+    render: (row) => {
+      const value = row.geocode_status;
+
+      if (
+        value &&
+        typeof value === "object" &&
+        "code" in value &&
+        "description" in value
+      ) {
+        const obj = value as { code?: string; description?: string };
+        return `${obj.code ?? ""} - ${obj.description ?? ""}`;
+      }
+
+      return String(value ?? "");
+    },
+  },
+  lat: {
+    key: "lat",
+    label: "Latitude",
+    sortable: true,
+    render: (value) => value == null ? "—" : String(value),
+  },
+  lng: {
+    key: "lng",
+    label: "Longitude",
+    sortable: true,
+    render: (value) => value == null ? "—" : String(value),
+  },
+  distance_miles: {
+  key: "distance_miles",
+  label: "Distance",
+  sortable: true,
+  render: (row) => {
+    const distance = Number(row.distance_miles);
+
+    return Number.isFinite(distance) ? `${distance.toFixed(2)} mi` : "—";
+  },
+},
+}

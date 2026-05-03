@@ -4,7 +4,6 @@ import { X } from "lucide-react";
 
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
-import { useCharityFilters } from "@/app/contexts/charity-filter-context";
 import { useCharityTableContext } from "@/app/table/table-context-example";
 
 export function GroupSingleInput() {

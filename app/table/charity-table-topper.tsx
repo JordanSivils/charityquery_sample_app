@@ -33,6 +33,9 @@ import { AssetAmountFilter } from "../components/text-inputs/numerical-inputs/as
 import { RevenueAmountFilter } from "../components/text-inputs/numerical-inputs/revenue-amt";
 import { FieldsFilter } from "../components/combo-boxes/fields-multi-select-box/fields-filter-box";
 import { SheetWrapper } from "./sheet-wrapper";
+import { SearchModeSelect } from "../components/selects/search-mode-select";
+import { NearbyOriginInputs } from "../components/text-inputs/single-inputs/nearby-inputs";
+import { GeocodeStatusMultiFilter } from "../components/combo-boxes/multi-select-boxes/geocode-status-box";
 
 type Option = { value: string; label: string };
 type PairOption = { subValue: string; classValue: string; label: string };
@@ -50,6 +53,7 @@ interface CharityTableTopperProps {
   subAndClassOpts: PairOption[];
   stateOpts: Option[];
   organizationOpts: Option[];
+  geocodeStatusOpts: Option[]
 }
 
 export function CharityTableTopper({
@@ -65,6 +69,7 @@ export function CharityTableTopper({
   subAndClassOpts,
   stateOpts,
   organizationOpts,
+  geocodeStatusOpts,
 }: CharityTableTopperProps) {
   const {
     applyFilters,
@@ -78,6 +83,7 @@ export function CharityTableTopper({
     nextPage,
     prevPage,
     appliedFilters,
+    draftFilters,
   } = useCharityTableContext();
 
   return (
@@ -86,6 +92,8 @@ export function CharityTableTopper({
         <div className="flex items-center gap-3">
           <SheetWrapper>
             <div className="flex flex-col gap-6">
+              <SearchModeSelect />
+              <NearbyOriginInputs />
               <div className="flex flex-col gap-4">
                 <h3 className="font-semibold">Single Select</h3>
                 <PfFilingFilter options={pfFilingOpts} />
@@ -94,6 +102,7 @@ export function CharityTableTopper({
 
               <div className="flex flex-col gap-4">
                 <h3 className="font-semibold">Multi Select</h3>
+                <GeocodeStatusMultiFilter options={geocodeStatusOpts} />
                 <DeductibilityMultiFilter options={deductibilityOpts} />
                 <NteeCodeMultiFilter options={nteeCodeOpts} />
                 <NteeGroupMultiFilter options={nteeGroupOpts} />
@@ -106,16 +115,20 @@ export function CharityTableTopper({
                 <OrganizationMultiFilter options={organizationOpts} />
               </div>
 
-              <div className="flex flex-col gap-4">
-                <h3 className="font-semibold">Multi Input</h3>
-                <ZipMultiInput />
-                <CityMultiInput />
-              </div>
+              {draftFilters.searchMode === "standard" && (
+                <div className="flex flex-col gap-4">
+                  <h3 className="font-semibold">Multi Input</h3>
+                  <ZipMultiInput />
+                  <CityMultiInput />
+                </div>
+              )}
 
               <div className="flex flex-col gap-4">
                 <h3 className="font-semibold">Single Input</h3>
                 <GroupSingleInput />
-                <StreetSingleInput />
+                {draftFilters.searchMode === "standard" && (
+                  <StreetSingleInput />
+                )}
                 <RulingSingleInput />
                 <TaxPeriodSingleInput />
                 <CharityNameSingleInput />

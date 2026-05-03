@@ -23,4 +23,6 @@ export const charityFieldOptions = [
   { value: "organization", label: "Organization" },
   { value: "status", label: "Status" },
   { value: "affiliation", label: "Affiliation" },
+  { value: "distance_miles", label: "Distance Mi." },
+  { value: "geocode_status", label: "Geocoding Status" },
 ];
